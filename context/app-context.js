@@ -12,7 +12,7 @@ export const AppContext = React.createContext({
   toggleTheme: () => {},
   setCurrency: () => {},
   setApiData: () => {},
-  setCoinData: () => {},
+  changeCoinData: () => {},
   setCurrencies: () => {},
 });
 
@@ -97,6 +97,10 @@ const AppContextProvider = (props) => {
     };
   };
 
+  const changeCoinData = function (data) {
+    setCoinData(data.map((coin) => mapCoinData(coin)));
+  };
+
   const toggleCurrTheme = function () {
     setTheme((currTheme) => {
       const nextTheme = currTheme === 'dark' ? 'light' : 'dark';
@@ -118,7 +122,7 @@ const AppContextProvider = (props) => {
         coinData,
         currencies,
         setApiData,
-        setCoinData,
+        changeCoinData,
         toggleTheme: toggleCurrTheme,
         setCurrency: changeCurrency,
       }}

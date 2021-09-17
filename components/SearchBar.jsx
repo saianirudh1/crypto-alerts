@@ -3,7 +3,7 @@ import { AppContext } from '../context/app-context';
 import styles from '../styles/SearchBar.module.css';
 
 function SearchBar() {
-  const setCoinData = useContext(AppContext).setCoinData;
+  const setCoinData = useContext(AppContext).changeCoinData;
   const apiData = useContext(AppContext).apiData;
 
   const handleSearch = function (e) {
