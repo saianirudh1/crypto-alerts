@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import CoinGecko from 'coingecko-api';
+import Coin from '../components/Coin';
 
 export const AppContext = React.createContext({
   theme: '',
@@ -32,7 +33,9 @@ const AppContextProvider = (props) => {
     setTheme(dark ? 'dark' : 'light');
 
     setLoadingData(true);
-    let allCoins = await CoinGeckoClient.coins.all();
+    const params = { per_page: 100, order: CoinGecko.ORDER.MARKET_CAP_DESC };
+    let allCoins = await CoinGeckoClient.coins.all(params);
+    console.log(allCoins);
     setLoadingData(false);
     const data = allCoins.data;
     setApiData(data);
@@ -44,8 +47,7 @@ const AppContextProvider = (props) => {
     setCurrencies(money.data);
 
     setInterval(async () => {
-      console.log('calling');
-      allCoins = await CoinGeckoClient.coins.all();
+      allCoins = await CoinGeckoClient.coins.all(params);
       coins = data.map((coin) => mapCoinData(coin));
       setCoinData(coins);
     }, min * 60000);
