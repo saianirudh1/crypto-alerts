@@ -5,64 +5,47 @@ import styles from '../styles/Coin.module.css';
 
 function Coin() {
   const currency = useContext(AppContext).currency;
-  const apiData = useContext(AppContext).apiData;
+  const coinData = useContext(AppContext).coinData;
+  const loadingData = useContext(AppContext).loadingData;
 
-  const mapCoinData = function (data) {
-    const id = data.id;
-    const name = data.name;
-    const image = data.image;
-    const symbol = data.symbol.toUpperCase();
-    const price = data.market_data.current_price[currency].toLocaleString();
-    const marketCap = '$' + data.market_data.market_cap.usd.toLocaleString();
-    const priceChange1 =
-      data.market_data.price_change_percentage_1h_in_currency[currency].toFixed(
-        1
-      ) + '%';
-    const priceChange24 =
-      data.market_data.price_change_percentage_24h.toFixed(1) + '%';
-    const priceChange7 =
-      data.market_data.price_change_percentage_7d.toFixed(1) + '%';
-
-    return {
-      id,
-      name,
-      image,
-      symbol,
-      price,
-      priceChange1,
-      priceChange24,
-      priceChange7,
-      marketCap,
-    };
-  };
-
-  const coins = apiData.map((data) => {
-    const coin = mapCoinData(data);
+  const coins = coinData.map((data) => {
     return (
-      <div key={coin.id} id={coin.id} className={styles['coin-container']}>
+      <div key={data.id} id={data.id} className={styles['coin-container']}>
         <div className={styles.coin}>
           <div className={styles.image}>
-            <img src={coin.image.small} />
+            <img src={data.image.small} />
           </div>
-          <p>{coin.name}</p>
+          <p>{data.name}</p>
         </div>
         <div className={styles.symbol}>
-          <p>{coin.symbol}</p>
+          <p>{data.symbol}</p>
         </div>
         <div className={styles.price}>
-          <p>{coin.price}</p>
+          <p>{data.price}</p>
         </div>
-        <div className={styles.percent}>
-          <p>{coin.priceChange1}</p>
+        <div
+          className={`${styles.percent} ${
+            data.priceChange1 < 0 ? styles.negative : styles.positive
+          }`}
+        >
+          <p>{data.priceChange1 + '%'}</p>
         </div>
-        <div className={styles.percent}>
-          <p>{coin.priceChange24}</p>
+        <div
+          className={`${styles.percent} ${
+            data.priceChange24 < 0 ? styles.negative : styles.positive
+          }`}
+        >
+          <p>{data.priceChange24 + '%'}</p>
         </div>
-        <div className={styles.percent}>
-          <p>{coin.priceChange7}</p>
+        <div
+          className={`${styles.percent} ${
+            data.priceChange7 < 0 ? styles.negative : styles.positive
+          }`}
+        >
+          <p>{data.priceChange7 + '%'}</p>
         </div>
         <div className={styles.market}>
-          <p>{coin.marketCap}</p>
+          <p>{data.marketCap}</p>
         </div>
         <div className={styles.alert}>
           <button>Set Alert</button>
@@ -71,42 +54,47 @@ function Coin() {
     );
   });
 
-  const main = (
-    <Fragment>
-      <div className={styles['coin-container']}>
-        <div className={styles.coin}>
-          <div className={styles.image}>
-            <h2>Coin</h2>
-          </div>
-          <h2></h2>
-        </div>
-        <div className={styles.symbol}>
-          <h2></h2>
-        </div>
-        <div className={styles.price}>
-          <h2>Price</h2>
-        </div>
-        <div className={styles.percent}>
-          <h2>1D</h2>
-        </div>
-        <div className={styles.percent}>
-          <h2>24H</h2>
-        </div>
-        <div className={styles.percent}>
-          <h2>7D</h2>
-        </div>
-        <div className={styles.market}>
-          <h2>Market Cap</h2>
-        </div>
-        <div className={styles.alert}>
-          <h2>Alert</h2>
-        </div>
+  const main =
+    coins.length === 0 ? (
+      <div className={styles['not-found']}>
+        <h1>No Results Found</h1>
       </div>
-      {coins}
-    </Fragment>
-  );
+    ) : (
+      <Fragment>
+        <div className={styles['coin-container']}>
+          <div className={styles.coin}>
+            <div className={styles.image}>
+              <h2>Coin</h2>
+            </div>
+            <h2></h2>
+          </div>
+          <div className={styles.symbol}>
+            <h2></h2>
+          </div>
+          <div className={styles.price}>
+            <h2>{`Price (${currency.toUpperCase()})`}</h2>
+          </div>
+          <div className={styles.percent}>
+            <h2>1D</h2>
+          </div>
+          <div className={styles.percent}>
+            <h2>24H</h2>
+          </div>
+          <div className={styles.percent}>
+            <h2>7D</h2>
+          </div>
+          <div className={styles.market}>
+            <h2>Market Cap</h2>
+          </div>
+          <div className={styles.alert}>
+            <h2>Alert</h2>
+          </div>
+        </div>
+        {coins}
+      </Fragment>
+    );
 
-  return apiData.length === 0 ? <Spinner /> : main;
+  return loadingData ? <Spinner /> : main;
 }
 
 export default Coin;

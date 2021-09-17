@@ -21,6 +21,7 @@
   display: flex;
   gap: 1.5rem;
   justify-content: flex-end;
+  align-items: center;
 }
 
 .controls select {
@@ -29,6 +30,7 @@
   border: none;
   color: inherit;
   font-size: 1rem;
+  cursor: pointer;
 }
 
 .controls option {
@@ -37,7 +39,7 @@
 }
 
 .controls i {
-  font-size: 2rem;
+  font-size: 1.75rem;
   cursor: pointer;
   user-select: none;
   opacity: 0.5;

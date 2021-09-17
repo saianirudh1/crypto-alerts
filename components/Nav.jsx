@@ -4,8 +4,20 @@ import styles from '../styles/Nav.module.css';
 
 function Nav() {
   const theme = useContext(AppContext).theme;
+  const currencies = useContext(AppContext).currencies;
+  const currency = useContext(AppContext).currency;
+  const setCurrency = useContext(AppContext).setCurrency;
+  const toggleTheme = useContext(AppContext).toggleTheme;
 
-  const changeCurrency = function () {};
+  const changeCurrency = function (e) {
+    setCurrency(e.target.value);
+  };
+
+  const options = currencies.map((curr) => (
+    <option key={curr} value={curr}>
+      {curr.toUpperCase()}
+    </option>
+  ));
 
   return (
     <div className={styles.nav}>
@@ -14,14 +26,13 @@ function Nav() {
         <h1>crypto alerts</h1>
       </div>
       <div className={styles.controls}>
-        <select name="Currency">
-          <option value="usd">USD</option>
-          <option value="inr">INR</option>
+        <select name="Currency" value={currency} onChange={changeCurrency}>
+          {options}
         </select>
         {theme === 'light' ? (
-          <i className="fas fa-sun"></i>
+          <i className="fas fa-sun" onClick={toggleTheme}></i>
         ) : (
-          <i className="fas fa-moon"></i>
+          <i className="fas fa-moon" onClick={toggleTheme}></i>
         )}
         <i className="fas fa-user"></i>
       </div>

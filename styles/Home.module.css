@@ -4,4 +4,5 @@
   background-color: var(--bg-color);
   overflow: auto;
   color: var(--primary-text);
+  transition: all 0.5s ease;
 }

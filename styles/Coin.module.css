@@ -1,3 +1,10 @@
+.not-found {
+  display: grid;
+  place-items: center;
+  height: 50vh;
+  width: 1100px;
+}
+
 .coin-container {
   border-bottom: 1px solid var(--accent-color);
   display: flex;
@@ -6,7 +13,7 @@
 }
 
 .coin-container h2 {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 .coin {
@@ -23,8 +30,8 @@
 }
 
 .image img {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.25rem;
+  height: 2.25rem;
 }
 
 .symbol {
@@ -45,6 +52,14 @@
   justify-content: center;
   align-items: center;
   min-width: 3rem;
+}
+
+.positive {
+  color: rgb(48, 175, 48);
+}
+
+.negative {
+  color: rgb(250, 36, 36);
 }
 
 .market {
