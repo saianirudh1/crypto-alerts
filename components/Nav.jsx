@@ -6,11 +6,14 @@ function Nav() {
   const theme = useContext(AppContext).theme;
   const currencies = useContext(AppContext).currencies;
   const currency = useContext(AppContext).currency;
+  const apiData = useContext(AppContext).apiData;
   const setCurrency = useContext(AppContext).setCurrency;
   const toggleTheme = useContext(AppContext).toggleTheme;
+  const setCoinData = useContext(AppContext).changeCoinData;
 
   const changeCurrency = function (e) {
     setCurrency(e.target.value);
+    setCoinData(apiData);
   };
 
   const options = currencies.map((curr) => (
