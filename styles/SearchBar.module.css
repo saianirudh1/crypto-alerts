@@ -12,6 +12,6 @@
   background-color: var(--secondary-bg);
   color: var(--primary-text);
   outline: none;
-  border: 1px solid var(--accent-color);
+  border: 3px solid var(--accent-color);
   padding: 1rem;
 }

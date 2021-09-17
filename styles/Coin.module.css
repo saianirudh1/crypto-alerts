@@ -6,7 +6,7 @@
 }
 
 .coin-container {
-  border-bottom: 1px solid var(--accent-color);
+  border-bottom: 1.75px solid var(--accent-color);
   display: flex;
   padding: 0.5rem 0rem;
   gap: 1rem;
