@@ -1,0 +1,17 @@
+.search {
+  display: grid;
+  place-items: center;
+  width: 100%;
+}
+
+.search input {
+  width: 30rem;
+  height: 3.5rem;
+  font-size: 2rem;
+  border-radius: 1rem;
+  background-color: var(--secondary-bg);
+  color: var(--primary-text);
+  outline: none;
+  border: 1px solid var(--accent-color);
+  padding: 1rem;
+}

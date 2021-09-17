@@ -1,0 +1,5 @@
+.cointable {
+  display: grid;
+  grid-auto-flow: row;
+  gap: 2rem;
+}

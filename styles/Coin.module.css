@@ -1,0 +1,79 @@
+.coin-container {
+  border-bottom: 1px solid var(--accent-color);
+  display: flex;
+  padding: 0.5rem 0rem;
+  gap: 1rem;
+}
+
+.coin-container h2 {
+  font-size: 1.2rem;
+}
+
+.coin {
+  display: flex;
+  min-width: 15rem;
+  justify-content: left;
+  align-items: center;
+}
+
+.image {
+  display: grid;
+  place-items: center;
+  margin-right: 1rem;
+}
+
+.image img {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.symbol {
+  display: flex;
+  min-width: 3rem;
+  align-items: center;
+}
+
+.price {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 7.5rem;
+}
+
+.percent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 3rem;
+}
+
+.market {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 15rem;
+}
+
+.alert {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 10rem;
+}
+
+.alert button {
+  width: 100%;
+  height: 100%;
+  font-size: 1.25rem;
+  border: none;
+  background-color: var(--accent-color);
+  color: inherit;
+  border-radius: 1rem;
+  cursor: pointer;
+  opacity: 0.86;
+}
+
+.alert button:hover,
+.alert button:focus {
+  opacity: 1;
+}
