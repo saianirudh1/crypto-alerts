@@ -1,15 +1,41 @@
-import { useContext } from 'react';
-import { AppContext } from '../context/app-context';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { dataActions } from '../redux/data';
 import Head from 'next/head';
 import App from '../components/App';
 
+import CoinGecko from 'coingecko-api';
+
 import styles from '../styles/Home.module.css';
 
-import CoinGecko from 'coingecko-api';
 const CoinGeckoClient = new CoinGecko();
+const min = 5;
 
 export default function Home() {
-  const theme = useContext(AppContext).theme;
+  const theme = useSelector((state) => state.theme.currTheme);
+  const currency = useSelector((state) => state.data.currency);
+  const dispatch = useDispatch();
+
+  useEffect(async () => {
+    dispatch(dataActions.toggleLoading());
+
+    const params = { per_page: 100, order: CoinGecko.ORDER.MARKET_CAP_DESC };
+    let allCoins = await CoinGeckoClient.coins.all(params);
+    dispatch(dataActions.toggleLoading());
+
+    const data = allCoins.data;
+    dispatch(dataActions.setApiData(data));
+    dispatch(dataActions.setCoinData({ data, currency }));
+
+    let money = await CoinGeckoClient.simple.supportedVsCurrencies();
+    dispatch(dataActions.setCurrencies(money.data));
+
+    setInterval(async () => {
+      allCoins = await CoinGeckoClient.coins.all(params);
+      dispatch(dataActions.setApiData(data));
+      dispatch(dataActions.setCoinData({ data, currency }));
+    }, min * 60000);
+  }, [CoinGeckoClient, dispatch]);
 
   return (
     <div className={styles.app} data-theme={theme}>

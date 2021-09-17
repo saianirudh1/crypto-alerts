@@ -1,19 +1,20 @@
-import { useContext } from 'react';
-import { AppContext } from '../context/app-context';
+import { useDispatch, useSelector } from 'react-redux';
+import { dataActions } from '../redux/data';
+import { themeActions } from '../redux/theme';
 import styles from '../styles/Nav.module.css';
 
 function Nav() {
-  const theme = useContext(AppContext).theme;
-  const currencies = useContext(AppContext).currencies;
-  const currency = useContext(AppContext).currency;
-  const apiData = useContext(AppContext).apiData;
-  const setCurrency = useContext(AppContext).setCurrency;
-  const toggleTheme = useContext(AppContext).toggleTheme;
-  const setCoinData = useContext(AppContext).changeCoinData;
+  const dispatch = useDispatch();
+  const theme = useSelector((state) => state.theme.currTheme);
+  const currency = useSelector((state) => state.data.currency);
+  const currencies = useSelector((state) => state.data.currencies);
 
   const changeCurrency = function (e) {
-    setCurrency(e.target.value);
-    setCoinData(apiData);
+    dispatch(dataActions.changeCurrency(e.target.value));
+  };
+
+  const toggleTheme = function () {
+    dispatch(themeActions.toggleTheme());
   };
 
   const options = currencies.map((curr) => (

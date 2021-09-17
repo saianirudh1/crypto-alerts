@@ -1,12 +1,12 @@
 import { Fragment, useContext } from 'react';
-import { AppContext } from '../context/app-context';
+import { useSelector } from 'react-redux';
 import Spinner from './Spinner.jsx';
 import styles from '../styles/Coin.module.css';
 
 function Coin() {
-  const currency = useContext(AppContext).currency;
-  const coinData = useContext(AppContext).coinData;
-  const loadingData = useContext(AppContext).loadingData;
+  const currency = useSelector((state) => state.data.currency);
+  const coinData = useSelector((state) => state.data.coinData);
+  const loadingData = useSelector((state) => state.data.loadingData);
 
   const coins = coinData.map((data) => {
     return (
@@ -75,7 +75,7 @@ function Coin() {
             <h2>{`Price (${currency.toUpperCase()})`}</h2>
           </div>
           <div className={styles.percent}>
-            <h2>1D</h2>
+            <h2>1H</h2>
           </div>
           <div className={styles.percent}>
             <h2>24H</h2>
@@ -94,7 +94,7 @@ function Coin() {
       </Fragment>
     );
 
-  return loadingData ? <Spinner /> : main;
+  return loadingData ? <Spinner /> : coins;
 }
 
 export default Coin;
